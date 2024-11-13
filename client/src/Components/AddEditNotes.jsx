@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { MdClose } from 'react-icons/md';
 
-const AddEditNotes = ({ onClose }) => {
+const AddEditNotes = ({ onClose, type, noteData }) => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [error, setError] = useState("");
+
+    //EditNote
+    const editNote = () => {};
+
+    //AddNewNote
+    const addNewNote = () => {};
 
     const handleAddNote = () => {
         if (!title) {
@@ -20,6 +26,11 @@ const AddEditNotes = ({ onClose }) => {
         setError(""); // Clear any existing error
         // Your save logic here...
 
+        if(type === 'edit'){
+            editNote();
+        }else {
+            addNewNote();
+        }
         // Close the modal after saving (optional)
         onClose();
     };

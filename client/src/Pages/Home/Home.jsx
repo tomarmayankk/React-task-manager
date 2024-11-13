@@ -39,7 +39,10 @@ const Home = () => {
         }}
         className='w-auto mt-16'
       >
-<AddEditNotes onClose={() => setOpenAddedit({ ...openAddedit, isShown: false })} />
+<AddEditNotes 
+type = {openAddedit.type}
+noteData={openAddedit.data}
+onClose={() => setOpenAddedit({ ...openAddedit, isShown: false })} />
       </Modal>
     </div>
   );
