@@ -20,14 +20,6 @@ const NoteCard = ({ title, date, content, tags, isPinned, onEdit, onDelete, onPi
 
       {/* Tags and Action Icons */}
       <div className="flex justify-between items-center">
-        {/* Tags */}
-        <div className="flex gap-2">
-            <span
-              className="px-2 py-1 text-xs font-medium text-white bg-blue-500 rounded-full"
-            >
-              {tags}
-            </span>
-        </div>
 
         {/* Edit and Delete Icons */}
         <div className="flex space-x-3">

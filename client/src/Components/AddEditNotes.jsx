@@ -1,16 +1,52 @@
 import React, { useState } from 'react';
 import { MdClose } from 'react-icons/md';
+import axiosInstance from '../utils/axiosInstance';
 
-const AddEditNotes = ({ onClose, type, noteData }) => {
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+const AddEditNotes = ({ onClose, type, noteData, getAllNotes }) => {
+    const [title, setTitle] = useState(noteData?.title || "");
+    const [content, setContent] = useState(noteData?.content || "");
     const [error, setError] = useState("");
 
     //EditNote
-    const editNote = () => {};
+    const editNote = async () => {
+        const noteId = noteData._id;
+        try {
+            const response = await axiosInstance.put("/edit-note/" + noteId, {
+                title,
+                content
+            })
+        if(response.data && response.data.note){
+            getAllNotes();
+            onClose();
+        }
+        } catch (error) {
+      if(error.response && error.response.data && error.response.data.message){
+        setError(error.response.data.message);
+      }else {
+        setError("an unexpected error occured")
+      }
+    }
+    };
 
     //AddNewNote
-    const addNewNote = () => {};
+    const addNewNote = async () => {
+        try {
+            const response = await axiosInstance.post("/add-note", {
+                title,
+                content
+            })
+        if(response.data && response.data.note){
+            getAllNotes();
+            onClose();
+        }
+        } catch (error) {
+      if(error.response && error.response.data && error.response.data.message){
+        setError(error.response.data.message);
+      }else {
+        setError("an unexpected error occured")
+      }
+    }
+    };
 
     const handleAddNote = () => {
         if (!title) {
@@ -85,7 +121,7 @@ const AddEditNotes = ({ onClose, type, noteData }) => {
                     onClick={handleAddNote}
                     className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none"
                 >
-                    Save Note
+                    {type === "edit" ? "UPDATE" : "Save Note"}
                 </button>
             </div>
         </div>
