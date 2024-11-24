@@ -1,1 +1,1 @@
-export const BASE_URL = "https://react-task-manager-server-amber.vercel.app/"
+export const BASE_URL = "https://react-task-manager-server-amber.vercel.app/";
