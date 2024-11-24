@@ -16,7 +16,11 @@ const {authenticateToken} = require("./utilities")
 app.use(express.json());
 
 
-app.use(cors());
+app.use(cors({
+    origin: "https://react-task-manager-client.vercel.app", // Frontend's deployed URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // If you're using cookies or tokens
+  }));
 
   
 app.get("/", (req, res) => {
