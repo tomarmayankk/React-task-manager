@@ -18,7 +18,7 @@ app.use(express.json());
 
 app.use(
     cors({
-      origin: 'http://localhost:5173', // Only allow this frontend URL (or use a dynamic environment variable in production)
+      origin: 'https://react-task-manager-client.vercel.app/', // Only allow this frontend URL (or use a dynamic environment variable in production)
       credentials: true,  // Allow cookies and headers to be sent with the request
     })
   );
@@ -273,17 +273,17 @@ app.get("/search-notes/", authenticateToken, async (req, res) => {
         })
     }
     try {
-        const MatchingNotes = await Note.find({
+        const matchingNotes = await Note.find({
             userId: user._id,
             $or: [
                 {title: {$regex: new RegExp(query, "i")}},
-                {content: {$regex: new RegExp(query, "i")}}
+                {content: {$regex: new RegExp(query, "i")}},
             ]
         })
 
         return res.json({
             error: false,
-            note: MatchingNotes,
+            note: matchingNotes,
             message: "Note retrieved"
         })
         
