@@ -1,7 +1,7 @@
 import React from 'react';
-import { MdCreate, MdDelete, MdOutlinePushPin } from 'react-icons/md';
+import { MdCreate, MdDelete, MdOutlinePushPin, MdDetails } from 'react-icons/md';
 
-const NoteCard = ({ title, date, content, tags, isPinned, onEdit, onDelete, onPinNote }) => {
+const NoteCard = ({ title, date, content, isPinned, onEdit, onDelete, onPinNote, onExtend }) => {
   return (
     <div className="relative p-4 max-w-96 h-44 bg-white rounded-lg shadow-md hover:shadow-2xl hover:bg-slate-100 transition-shadow duration-300">
       {/* Header with Title, Date, and Pin Icon */}
@@ -25,6 +25,7 @@ const NoteCard = ({ title, date, content, tags, isPinned, onEdit, onDelete, onPi
         <div className="flex space-x-3">
           <MdCreate onClick={onEdit} className="cursor-pointer text-gray-500 hover:text-gray-700 text-lg" />
           <MdDelete onClick={onDelete} className="cursor-pointer text-gray-500 hover:text-gray-700 text-lg" />
+          <MdDetails onClick={onExtend} className="cursor-pointer text-gray-500 hover:text-gray-700 text-lg" />
         </div>
       </div>
     </div>

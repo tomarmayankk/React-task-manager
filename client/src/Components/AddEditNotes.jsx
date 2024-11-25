@@ -116,13 +116,18 @@ const AddEditNotes = ({ onClose, type, noteData, getAllNotes }) => {
 
             {/* Save Button */}
             <div className="flex justify-end">
-                <button
-                    type="button"
-                    onClick={handleAddNote}
-                    className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none"
-                >
-                    {type === "edit" ? "UPDATE" : "Save Note"}
-                </button>
+            <button
+    type="button"
+    onClick={type !== "extend" ? handleAddNote : undefined} // Disable click when type is "extend"
+    className={`px-4 py-2 font-semibold rounded-md focus:outline-none ${
+        type === "extend"
+            ? "bg-gray-400 text-gray-700 cursor-not-allowed"
+            : "bg-blue-600 text-white hover:bg-blue-700"
+    }`}
+    disabled={type === "extend"} // Disable button to prevent interactions
+>
+    {type === "extend" ? null : type === "edit" ? "UPDATE" : "Save Note"}
+</button>
             </div>
         </div>
     );

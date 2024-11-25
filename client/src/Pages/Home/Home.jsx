@@ -69,22 +69,6 @@ const Home = () => {
 }
   }
 
-  const searchNote = async (query) => {
-    try {
-      const response = await axiosInstance.get("/search-notes/", {
-        params: { query },
-      });
-      console.log("Search Response:", response.data);
-  
-      if (response.data && response.data.notes) {
-        setIsSearch(true); // Indicate we're in search mode
-        setAllNotes(response.data.notes); // Update with filtered notes
-      }
-    } catch (error) {
-      console.log("Search error:", error);
-    }
-  };
-
   const updateIsPinned = async (noteData) => {
     const noteId = noteData._id;
     try {
@@ -98,6 +82,11 @@ const Home = () => {
       console.log(error)
   }
   }
+
+  const handleExtend = (noteDetails) => {
+    setOpenAddedit({isShown: true, data: noteDetails, type: "extend"})
+  }
+
  useEffect(() => {
   getAllNotes();
    getUserInfo();
@@ -107,7 +96,7 @@ const Home = () => {
 
  return (
   <div>
-    <Navbar userInfo={userInfo} searchNote = {searchNote}/>
+    <Navbar userInfo={userInfo}/>
     
     {/* Main Notes Section */}
     <div className='relative flex flex-col gap-4 w-auto h-[70vh] mt-20 mx-5 mb-5'>
@@ -127,6 +116,7 @@ const Home = () => {
               content={item.content} 
               isPinned={item.isPinned} 
               onEdit={() => {handleEdit(item)}} 
+              onExtend={() => {handleExtend(item)}}
               onDelete={() => {deleteNote(item)}} 
               onPinNote={() => {updateIsPinned(item)}} 
             />

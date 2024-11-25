@@ -16,9 +16,7 @@ const {authenticateToken} = require("./utilities")
 app.use(express.json());
 
 app.use(cors({
-    origin: 'https://react-task-manager-client.vercel.app/:paths', // Frontend URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true, // Include cookies or credentials if needed
+    origin: "*"
   }));
 
 app.options('*', cors());
@@ -261,39 +259,6 @@ app.put("/update-note-pin/:noteId", authenticateToken, async (req, res) => {
         return res.status(500).json({
             error: true,
             message: "Internal Server Error"
-        })
-    }
-})
-
-app.get("/search-notes/", authenticateToken, async (req, res) => {
-    const {user} = req.user;
-    const {query} = req.query;
-
-    if(!query){
-        return res.status(400).json({
-            error: true,
-            message: "Search Query Required"
-        })
-    }
-    try {
-        const matchingNotes = await Note.find({
-            userId: user._id,
-            $or: [
-                {title: {$regex: new RegExp(query, "i")}},
-                {content: {$regex: new RegExp(query, "i")}},
-            ]
-        })
-
-        return res.json({
-            error: false,
-            note: matchingNotes,
-            message: "Note retrieved"
-        })
-        
-    } catch (error) {
-        return res.status(500).json({
-            error: true,
-            message: "Internal server error"
         })
     }
 })
